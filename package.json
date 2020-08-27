@@ -5,7 +5,6 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server",
-    "build": "node tools/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ryan Villanueva <ryanvill@gmail.com>",
