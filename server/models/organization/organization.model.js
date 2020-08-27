@@ -1,20 +1,20 @@
 const querystring = require('querystring');
-const config = require('./config');
-const db = require('./db');
-const ProviderOptions = require('./Provider');
+const config = require('../../config');
+const db = require('../../db');
+const Provider = require('..').Provider;
 
 class Organization {
   constructor(record) {
     this.id = record.id;
     this.score = record.fields.Score;
-    this.shortcode = record.fields["Internal Code"];
+    this.internalCode = record.fields["Internal Code"];
     this.name = record.fields.Organization;
     this.codes = {
       turbovote: record.fields[config.turbovote.recordField],
       voteorg: record.fields[config.voteorg.recordField]
     }
   }
-  static async getByIdOrDefault(id) {
+  static async getByInternalCode(id) {
     let record = await db.getRecordByField('Internal Code', id || config.catchAllCode)
     if(!record) {
       record = await db.getRecordByField('Internal Code', config.catchAllCode)
@@ -33,10 +33,10 @@ class Organization {
       },
     ])
   }
-  getUrl(providerId) {
-    const options = ProviderOptions.getById(providerId);
-    if(!options) throw new Error(`Provider ${providerId} not recognized.`);
-    return options.getUrl(this.codes[providerId])
+  buildReferralUrl(providerId) {
+    const provider = Provider.getById(providerId);
+    if(!provider) throw new Error(`Provider ${providerId} not recognized.`);
+    return provider.buildReferralUrl(this.codes[providerId])
   }
 }
 

@@ -1,5 +1,5 @@
 const Airtable = require('airtable');
-const config = require('./config');
+const config = require('../config');
 
 class Database {
   constructor() {
