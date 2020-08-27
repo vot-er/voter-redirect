@@ -16,5 +16,5 @@ module.exports = {
     baseUrl: process.env.VOTEORG_BASE_URL,
     recordField: process.env.VOTEORG_RECORD_FIELD
   },
-  catchAllCode: process.env.CATCH_ALL_CODE || 'misc'
+  catchAllInternalCode: process.env.CATCHALL_INTERNAL_CODE || '_misc'
 }

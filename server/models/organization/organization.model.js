@@ -1,7 +1,7 @@
 const querystring = require('querystring');
 const config = require('../../config');
 const db = require('../../db');
-const Provider = require('..').Provider;
+const Provider = require('../provider/provider.model');
 
 class Organization {
   constructor(record) {
@@ -15,9 +15,9 @@ class Organization {
     }
   }
   static async getByInternalCode(id) {
-    let record = await db.getRecordByField('Internal Code', id || config.catchAllCode)
+    let record = await db.getRecordByField('Internal Code', id || config.catchAllInternalCode)
     if(!record) {
-      record = await db.getRecordByField('Internal Code', config.catchAllCode)
+      record = await db.getRecordByField('Internal Code', config.catchAllInternalCode)
     }
     if(!record) throw new Error("No organization found.")
 

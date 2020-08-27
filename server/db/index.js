@@ -10,7 +10,7 @@ class Database {
       this.base(config.airtable.sheet).select({
           maxRecords: 1,
           view: "Grid view",
-          filterByFormula: `{${key}}='${value || config.catchAllCode}'`
+          filterByFormula: `{${key}}='${value || config.catchAllInternalCode}'`
         }).eachPage(function page(records, fetchNextPage) {
           try {
             if (records.length == 0) return resolve(null);

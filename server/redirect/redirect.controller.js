@@ -11,7 +11,8 @@ async function redirect(req, res) {
     return res.status(301).redirect(url);  
   } catch(err) {
     console.error(err)
-    return res.status(301).redirect(Provider.findById(providerId).getBaseUrl());
+    const url = Provider.findById(providerId).getBaseUrl();
+    return res.status(301).redirect(url);
   }
 }
 
