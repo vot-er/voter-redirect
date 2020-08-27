@@ -1,56 +1,42 @@
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: process.env.AIRTABLE_SECRET}).base(process.env.AIRTABLE_BASE_ID);
 const querystring = require('querystring');
+const config = require('./config');
+const db = require('./db');
+const ProviderOptions = require('./Provider');
 
 class Organization {
-  constructor({id, shortcode, name, tags, score}) {
-    this.id = id;
-    this.score = score;
-    this.shortcode = shortcode;
-    this.name = name;
-    this.tags = tags;
+  constructor(record) {
+    this.id = record.id;
+    this.score = record.fields.Score;
+    this.shortcode = record.fields["Internal Code"];
+    this.name = record.fields.Organization;
+    this.codes = {
+      turbovote: record.fields[config.turbovote.recordField],
+      voteorg: record.fields[config.voteorg.recordField]
+    }
   }
-  static getById(id) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        await base(process.env.AIRTABLE_BASE_NAME).select({
-          maxRecords: 3,
-          view: "Grid view"
-        }).eachPage(function page(records, fetchNextPage) {
-          records.forEach(record => {
-            console.log(record.fields.Shortcode)
-            if(record.fields.Shortcode == id) {
-              const organization = new Organization({
-                shortcode: record.fields.Shortcode,
-                name: record.fields.Organization,
-                tags: {
-                  turbovote: record.fields['TurboVote Code'] || null,
-                  voteOrg: record.fields['VoteOrg Code'] || null
-                }
-              })
-              return resolve(organization)
-            }
-          })
-        })
-      } catch(err) {
-        console.error(err)
-        reject(err)
-      }
-    })
+  static async getByIdOrDefault(id) {
+    let record = await db.getRecordByField('Internal Code', id || config.catchAllCode)
+    if(!record) {
+      record = await db.getRecordByField('Internal Code', config.catchAllCode)
+    }
+    if(!record) throw new Error("No organization found.")
+
+    return new Organization(record);
   }
   incrementCounter() {
-    return base(process.env.AIRTABLE_BASE_NAME).update([
+    return db.update([
       {
         "id": this.id,
         "fields": {
-          "Score": this.score + 1,
+          "Score": (this.score || 0) + 1,
         }
       },
     ])
   }
-  getUrl(name, params) {
-    const q = querystring.stringify(params);
-    return `${process.env.TURBOVOTE_BASE_URL}?${q}`;
+  getUrl(providerId) {
+    const options = ProviderOptions.getById(providerId);
+    if(!options) throw new Error(`Provider ${providerId} not recognized.`);
+    return options.getUrl(this.codes[providerId])
   }
 }
 

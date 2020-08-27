@@ -1,17 +1,25 @@
 const Organization = require('./Organization');
+const config = require('./config');
 
 async function redirect(req, res) {
   try {
+    const providerId = req.params.providerId;
     const ref = req.query.ref;
-    const organization = await Organization.getById(ref);
+    const organization = await Organization.getByIdOrDefault(ref);
     organization.incrementCounter();
-    return res.status(301).redirect(organization.getUrl('test', {ref: 'hi'}));  
+    const url = organization.getUrl(providerId);
+    return res.status(301).redirect(url);  
   } catch(err) {
     console.error(err)
-    return res.status(301).redirect('https://vote.org');
+    return res.status(301).redirect(Provider.findById(providerId).getBaseUrl());
   }
 }
 
+function notFound(req, res) {
+  return res.send('Not found.')
+}
+
 module.exports = {
-  redirect: redirect
+  redirect: redirect,
+  notFound: notFound
 }

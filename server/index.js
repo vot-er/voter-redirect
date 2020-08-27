@@ -6,7 +6,8 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', controller.redirect)
+app.get('/r/:providerId', controller.redirect)
+app.get('*', controller.notFound);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://${host}:${port}`)
