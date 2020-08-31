@@ -12,7 +12,8 @@
   "dependencies": {
     "airtable": "^0.9.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "google-spreadsheet": "^3.0.13"
   },
   "devDependencies": {
     "copyfiles": "^2.3.0"
