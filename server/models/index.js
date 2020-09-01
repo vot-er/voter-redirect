@@ -1,7 +1,7 @@
-const Organization = require("./organization/organization.model");
-const Provider = require("./provider/provider.model");
+const Campaign = require("./campaign/Campaign");
+const Event = require("./event/Event");
 
 module.exports = {
-  Organization: Organization,
-  Provider: Provider
+  Campaign: Campaign,
+  Event: Event
 }

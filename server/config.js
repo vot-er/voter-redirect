@@ -3,10 +3,10 @@ require('dotenv').config()
 module.exports = {
   host: process.env.HOST || 'localhost',
   port: process.env.PORT || 5000,
-  airtable: {
-    sheet: process.env.AIRTABLE_SHEET,
-    baseId: process.env.AIRTABLE_BASE_ID,
-    secret: process.env.AIRTABLE_SECRET
+  google: {
+    spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID,
+    clientEmail: process.env.GOOGLE_CLIENT_EMAIL,
+    privateKey: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, '\n')
   },
   turbovote: {
     baseUrl: process.env.TURBOVOTE_BASE_URL,
