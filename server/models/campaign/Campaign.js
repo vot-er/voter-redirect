@@ -31,8 +31,8 @@ class Campaign {
           r: this.codes.turbovote
         })
       case 'voteorg':
-        return urlUtils.buildUrl(config.turbovote.baseUrl, {
-          campaign: this.codes.turbovote,
+        return urlUtils.buildUrl(config.voteorg.baseUrl, {
+          campaign: this.codes.voteorg,
           partner: config.voteorg.partner
         })
       default:
