@@ -2,8 +2,11 @@ const redirect = require('./api/redirect/redirect.controller').redirect;
 const express = require('express');
 const config = require('./config');
 const db = require('./db');
+const useragent = require('express-useragent');
 
 const app = express();
+
+app.use(useragent.express())
 
 app.get('/r/:target', redirect)
 

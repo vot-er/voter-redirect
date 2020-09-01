@@ -7,7 +7,13 @@ class Event {
       Timestamp: new Date(),
       'Campaign ID': event.campaignId,
       'Target': event.target,
-      'Type': event.type
+      'Type': event.type,
+      'IP Address': event.ip,
+      'Device Type': event.device,
+      'Browser': event.browser,
+      'OS': event.os,
+      'Platform': event.platform,
+      'User Agent': event.userAgent
     })
   }
 }

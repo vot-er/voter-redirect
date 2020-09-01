@@ -13,7 +13,13 @@ async function redirect(req, res) {
     await Event.create({
       target: target,
       campaignId: campaignId,
-      type: 'click'
+      type: 'click',
+      ip: req.ip,
+      userAgent: req.useragent.source,
+      device: req.useragent.isMobile ? 'mobile' : req.useragent.isDesktop ? 'desktop' : null,
+      browser: req.useragent.browser,
+      os: req.useragent.os,
+      platform: req.useragent.platform
     })
     const url = campaign.getUrl(target);
     return res.status(301).redirect(url);

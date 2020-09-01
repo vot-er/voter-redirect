@@ -25,8 +25,10 @@ class Database {
     }
     return null;
   }
-  addRow(worksheet, row) {
-
+  async addRow(worksheetTitle, row) {
+    const worksheet = this.doc.sheetsByTitle[worksheetTitle];
+    if(!worksheet) throw new Error("Worksheet not found.");
+    return worksheet.addRow(row)
   }
 }
 
