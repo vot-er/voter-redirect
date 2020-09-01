@@ -33,7 +33,7 @@ class Campaign {
       case 'voteorg':
         return urlUtils.buildUrl(config.voteorg.baseUrl, {
           campaign: this.codes.voteorg,
-          partner: config.voteorg.partner
+          partner: config.voteorg.partnerId
         })
       default:
         throw new Error(`Target ${target} not recognized.`);
