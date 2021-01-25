@@ -1,20 +1,11 @@
 const config = require('../../config');
 const db = require('../../db');
-const moment = require('moment');
-
 class Event {
   static async create(event) {
-    await db.addRow('Events', {
-      Timestamp: moment.utc().format('YYYY/MM/DD HH:mm:ss'),
-      'Campaign ID': event.campaignId,
-      'Target': event.target,
-      'Type': event.type,
-      'IP Address': event.ip,
-      'Device Type': event.device,
-      'Browser': event.browser,
-      'OS': event.os,
-      'Platform': event.platform,
-      'User Agent': event.userAgent
+    await db.query({
+      name: 'addEvent',
+      text: 'INSERT INTO event(ref, type, "createdAt", ip, "userAgent", device, browser, os, platform) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+      values: [event.ref, event.type, new Date(), event.ip, event.userAgent, event.device, event.browser, event.os, event.platform]
     })
   }
 }

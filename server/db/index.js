@@ -1,7 +1,8 @@
-const Database = require('./Database');
+const {Client} = require('pg');
 const config = require('../config');
 
-const db = new Database(config.google.clientEmail, config.google.privateKey, config.google.spreadsheetId);
+const client = new Client({
+  connectionString: config.databaseUrl
+})
 
-
-module.exports = db
+module.exports = client

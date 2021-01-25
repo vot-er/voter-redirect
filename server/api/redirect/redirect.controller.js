@@ -1,18 +1,17 @@
-const Campaign = require('../../models').Campaign;
 const Event = require('../../models').Event;
 const config = require('../../config');
+
+function getUrl(ref) {
+  if(!ref || !ref.length) return config.baseRedirectUrl;
+  return `${config.baseRedirectUrl}?ref=${ref}`;
+}
 
 async function redirect(req, res) {
   try {
     const target = req.params.target;
-    const campaignId = req.query.ref;
-    let campaign = await Campaign.getById(campaignId);
-    if(!campaign) {
-      campaign = Campaign.getFallback();
-    }
+    const {ref} = req.query;
     await Event.create({
-      target: target,
-      campaignId: campaignId,
+      ref: ref,
       type: 'click',
       ip: req.ip,
       userAgent: req.useragent.source,
@@ -21,12 +20,11 @@ async function redirect(req, res) {
       os: req.useragent.os,
       platform: req.useragent.platform
     })
-    const url = campaign.getUrl(target);
+    const url = getUrl(ref);
     return res.status(301).redirect(url);
   } catch(err) {
     console.error(err)
-    const campaign = Campaign.getFallback();
-    const url = campaign.getUrl(target);
+    const url = getUrl(ref);
     return res.status(301).redirect(url);
   }
 }

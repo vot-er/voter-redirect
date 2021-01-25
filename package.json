@@ -10,12 +10,11 @@
   "author": "Ryan Villanueva <ryanvill@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "airtable": "^0.9.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-useragent": "^1.0.15",
-    "google-spreadsheet": "^3.0.13",
-    "moment": "^2.27.0"
+    "moment": "^2.27.0",
+    "pg": "^8.5.1"
   },
   "devDependencies": {
     "copyfiles": "^2.3.0"

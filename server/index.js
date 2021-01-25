@@ -8,13 +8,13 @@ const app = express();
 
 app.use(useragent.express())
 
-app.get('/r/:target', redirect)
+app.get('/', redirect)
 
 app.get('*', function notFound(req, res) {
   return res.status(200).send('Page not found.')
 });
 
-db.load()
+db.connect()
   .then(() => app.listen(config.port, () => {
     console.log(`VotER redirect app listening at http://${config.host}:${config.port}`)
   }))
