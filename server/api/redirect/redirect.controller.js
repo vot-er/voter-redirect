@@ -7,9 +7,8 @@ function getUrl(ref) {
 }
 
 async function redirect(req, res) {
+  const {ref} = req.query;
   try {
-    const target = req.params.target;
-    const {ref} = req.query;
     await Event.create({
       ref: ref,
       type: 'click',
