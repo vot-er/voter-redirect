@@ -5,13 +5,15 @@ const config = require('./config');
 const db = require('./db');
 const useragent = require('express-useragent');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 var jsonParser = bodyParser.json()
 
 app.use(useragent.express())
 
-app.get('/api/events', jsonParser, track)
+app.options('/api/events', cors())
+app.post('/api/events', cors(), jsonParser, track)
 app.get('/', redirect)
 
 
