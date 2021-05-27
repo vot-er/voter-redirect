@@ -5,11 +5,14 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server",
+    "sync": "node ./server/jobs/airtable-sync.js",
+    "migrate": "node ./migrate/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ryan Villanueva <ryanvill@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "airtable": "^0.10.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -19,6 +22,7 @@
     "pg": "^8.5.1"
   },
   "devDependencies": {
-    "copyfiles": "^2.3.0"
+    "copyfiles": "^2.3.0",
+    "prettier": "^2.2.1"
   }
 }
