@@ -12,7 +12,7 @@ async function getUrl(code) {
   try {
     if (!code) return config.baseRedirectUrl
     const organization = await getOrganization(code)
-    if (!organization) return constructDefaultUrl(ref)
+    if (!organization) return constructDefaultUrl(code)
     return constructOrganizationUrl(code, organization)
   } catch (err) {
     console.error(err)
