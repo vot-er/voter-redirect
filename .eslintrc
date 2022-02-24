@@ -1,3 +1,31 @@
 {
-  "extends": "eslint:recommended"
+  "extends": ["eslint:recommended", "prettier"],
+  "root": true,
+  "env": {
+    "es6": true,
+    "browser": false,
+    "amd": true,
+    "jest": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "experimentalObjectRestSpread": true,
+      "classes": true
+    }
+  },
+
+  "globals": {
+    "module": true,
+    "process": true,
+    "__dirname": true,
+    "__filename": true,
+    "console": true
+  },
+  "rules": {
+    "no-unused-vars": "warn"
+  }
 }

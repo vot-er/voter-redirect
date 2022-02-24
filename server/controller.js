@@ -21,7 +21,7 @@ async function getUrl(code) {
 }
 
 async function redirect(req, res) {
-  const { code } = req.params
+  let { code } = req.params
   if (!code || !code.length) code = null
   const url = await getUrl(code)
   return res.status(301).redirect(url)
