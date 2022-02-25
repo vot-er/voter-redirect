@@ -1,23 +1,22 @@
 const config = require('./config')
 const Kit = require('./kit')
-const { constructDefaultUrl, constructOrganizationUrl } = require('./utils/url')
-
-async function getOrganization(code) {
-  const kit = await Kit.getByCode(code)
-  if (kit.organization) return kit.organization
-  return null
-}
+const { buildUrl } = require('./utils/url')
 
 async function getUrl(code) {
   try {
     if (!code) return config.baseRedirectUrl
-    const organization = await getOrganization(code)
-    if (!organization) return constructDefaultUrl(code)
-    return constructOrganizationUrl(code, organization)
+    const kit = await Kit.getByCode(code)
+    if (kit) {
+      const { organizationId, customUrl } = kit
+      return buildUrl(customUrl || config.baseRedirectUrl, {
+        ref: code,
+        organizationId,
+      })
+    }
   } catch (err) {
     console.error(err)
   }
-  return constructDefaultUrl(code)
+  return buildUrl(config.baseRedirectUrl, { ref: code })
 }
 
 async function redirect(req, res) {

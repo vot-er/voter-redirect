@@ -16,10 +16,8 @@ describe('getUrl', () => {
     require('./kit').__setMockKit({
       id: '1',
       code: 'code',
-      organization: {
-        id: 'o4',
-        customUrl: 'https://en.wiktionary.org/wiki/test',
-      },
+      organizationId: 'o4',
+      customUrl: 'https://en.wiktionary.org/wiki/test',
     })
     return expect(getUrl('withError')).resolves.toBe(
       `${config.baseRedirectUrl}?ref=withError`
@@ -42,10 +40,8 @@ describe('getUrl', () => {
       require('./kit').__setMockKit({
         id: '1',
         code: 'code',
-        organization: {
-          id: 'o2',
-          customUrl: null,
-        },
+        organizationId: 'o2',
+        customUrl: null,
       })
       return expect(getUrl('code')).resolves.toBe(
         `${config.baseRedirectUrl}?ref=code&organizationId=o2`
@@ -55,10 +51,8 @@ describe('getUrl', () => {
       require('./kit').__setMockKit({
         id: '1',
         code: 'code',
-        organization: {
-          id: 'o3',
-          customUrl: '',
-        },
+        organizationId: 'o3',
+        customUrl: '',
       })
       return expect(getUrl('code')).resolves.toBe(
         `${config.baseRedirectUrl}?ref=code&organizationId=o3`
@@ -70,10 +64,8 @@ describe('getUrl', () => {
       require('./kit').__setMockKit({
         id: '1',
         code: 'code',
-        organization: {
-          id: 'o4',
-          customUrl: 'https://en.wiktionary.org/wiki/test',
-        },
+        organizationId: 'o4',
+        customUrl: 'https://en.wiktionary.org/wiki/test',
       })
       return expect(getUrl('code')).resolves.toBe(
         `https://en.wiktionary.org/wiki/test?ref=code&organizationId=o4`

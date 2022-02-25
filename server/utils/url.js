@@ -1,23 +1,13 @@
-const querystring = require('querystring')
-const config = require('../config')
-
 function buildUrl(baseUrl, params) {
   if (!params) return baseUrl
-  const q = querystring.stringify(params)
+  const nonNullParams = Object.keys(params).reduce((all, key) => {
+    if (params[key]) all[key] = params[key]
+    return all
+  }, {})
+  const q = new URLSearchParams(nonNullParams).toString()
   return `${baseUrl}?${q}`
-}
-
-function constructOrganizationUrl(ref, organization) {
-  const baseUrl = organization.customUrl || config.baseRedirectUrl
-  return buildUrl(baseUrl, { ref: ref, organizationId: organization.id })
-}
-
-function constructDefaultUrl(ref) {
-  return buildUrl(config.baseRedirectUrl, { ref: ref })
 }
 
 module.exports = {
   buildUrl: buildUrl,
-  constructDefaultUrl: constructDefaultUrl,
-  constructOrganizationUrl: constructOrganizationUrl,
 }

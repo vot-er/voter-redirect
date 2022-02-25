@@ -4,7 +4,10 @@ const config = require('./config')
 function Kit() {}
 
 Kit.getByCode = async (code) => {
-  const { data } = await axios.get(`${config.webappUrl}/api/kits/${code}`)
+  const { data } = await axios.get(
+    `${config.webappUrl}/api/redirects/${code}`,
+    { timeout: 2000 }
+  )
   return data
 }
 
