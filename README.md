@@ -11,4 +11,4 @@ Service to manage redirection by the [vote.health](vote.health) domain.
 5. Copy `.env-sample` to `.env`
 6. Open the VSCode workspace in a development container with `View > Command Palette > Remote-Containers: Reopen in Container` (or click the green symbol in the bottom left corner)
 7. Install dependencies using `yarn install`
-8. Go to `localhost:5001`
+8. Go to `localhost:5000`

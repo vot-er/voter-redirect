@@ -2,12 +2,15 @@
   "name": "voter-redirect",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "npm": ">=8",
+    "node": "16"
+  },
   "main": "server/index.js",
   "scripts": {
     "start": "node server",
-    "sync": "node ./server/jobs/airtable-sync.js",
-    "migrate": "node ./migrate/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest",
+    "lint": "npx eslint"
   },
   "author": "Ryan Villanueva <ryanvill@gmail.com>",
   "license": "ISC",
@@ -20,6 +23,9 @@
   },
   "devDependencies": {
     "copyfiles": "^2.3.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.5.1",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "jest": "^27.5.1"
   }
 }
